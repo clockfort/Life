@@ -26,8 +26,8 @@
 #include <iostream>
 #include "life.h"
 
-const int HEIGHT=20;
-const int WIDTH=30;
+const int HEIGHT=8;
+const int WIDTH=8;
 bitpack next[2][WIDTH/8+1];
 bitpack internalBoard[HEIGHT][WIDTH/8+1];
 
@@ -35,12 +35,14 @@ using namespace std;
 
 int main(int argc, char** argv) {
     int generation;
+    bool notEmpty;
     while(true){
         randomFill();
         generation=0;
-        while(generation <= 80){
+        notEmpty=true;
+        while(generation <= 80 && notEmpty){
             cout << "Generation: " << generation++ << endl;
-            printBoard();
+            notEmpty = printBoard();
             tick();
             usleep(50000);
         }
@@ -233,16 +235,20 @@ void tick(){
     }
 }
 
-void printBoard(){
+bool printBoard(){
+    bool notEmpty=false;
     for(int i=0; i<HEIGHT; i++){
         for(int j=0; j<WIDTH; j++){
-            if(getBoard(i,j)==1)
+            if(getBoard(i,j)==1){
                 cout << (char) (getBoard(i,j)+63) << " ";
+                notEmpty=true;
+            }
             else
                 cout << "  ";
         }
         cout << endl;
     }
+    return notEmpty;
 }
 
 void randomFill(){

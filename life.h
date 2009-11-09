@@ -9,7 +9,7 @@
 #define	_LIFE_H
 
 void tick();
-void printBoard();
+bool printBoard();
 void randomFill();
 void gliderFill();
 char getBoard(int height, int width);
