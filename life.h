@@ -12,8 +12,10 @@ void tick();
 void printBoard();
 void randomFill();
 void gliderFill();
-char get(int height, int width);
-void set(int height, int width, int newValue);
+char getBoard(int height, int width);
+void setBoard(int height, int width, int newValue);
+char getNext(int height, int width);
+void setNext(int height, int width, int newValue);
 
 struct bitpack
 {
