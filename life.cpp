@@ -26,10 +26,10 @@
 #include <iostream>
 #include "life.h"
 
-const int HEIGHT=8;
-const int WIDTH=8;
-bitpack next[2][WIDTH/8+1];
-bitpack internalBoard[HEIGHT][WIDTH/8+1];
+const int HEIGHT=20;
+const int WIDTH=30;
+unsigned char next[2][WIDTH/8+1];
+unsigned char internalBoard[HEIGHT][WIDTH/8+1];
 
 using namespace std;
 
@@ -52,106 +52,28 @@ int main(int argc, char** argv) {
 
 
 char getBoard(int height, int width){
-    switch(width%8){
-        case 0:
-            return internalBoard[height][width/8].h;
-        case 1:
-            return internalBoard[height][width/8].g;
-        case 2:
-            return internalBoard[height][width/8].f;
-        case 3:
-            return internalBoard[height][width/8].e;
-        case 4:
-            return internalBoard[height][width/8].d;
-        case 5:
-            return internalBoard[height][width/8].c;
-        case 6:
-            return internalBoard[height][width/8].b;
-        case 7:
-            return internalBoard[height][width/8].a;
-    }
+    return (internalBoard[height][width/8] >> width%8) & 1;
 }
 
 
 void setBoard(int height, int width, int newValue){
-
-    switch(width%8){
-        case 0:
-            internalBoard[height][width/8].h=newValue;
-            break;
-        case 1:
-            internalBoard[height][width/8].g=newValue;
-            break;
-        case 2:
-            internalBoard[height][width/8].f=newValue;
-            break;
-        case 3:
-            internalBoard[height][width/8].e=newValue;
-            break;
-        case 4:
-            internalBoard[height][width/8].d=newValue;
-            break;
-        case 5:
-            internalBoard[height][width/8].c=newValue;
-            break;
-        case 6:
-            internalBoard[height][width/8].b=newValue;
-            break;
-        case 7:
-            internalBoard[height][width/8].a=newValue;
-    }
+    if(newValue==1)
+        internalBoard[height][width/8]=internalBoard[height][width/8] | (1<<(width%8));
+    else
+        internalBoard[height][width/8]=internalBoard[height][width/8] & ~(1<<(width%8));
 }
 
 
 char getNext(int height, int width){
-    switch(width%8){
-        case 0:
-            return next[height][width/8].h;
-        case 1:
-            return next[height][width/8].g;
-        case 2:
-            return next[height][width/8].f;
-        case 3:
-            return next[height][width/8].e;
-        case 4:
-            return next[height][width/8].d;
-        case 5:
-            return next[height][width/8].c;
-        case 6:
-            return next[height][width/8].b;
-        case 7:
-            return next[height][width/8].a;
-    }
+    return (next[height][width/8] >> width%8) & 1;
 }
 
 
 void setNext(int height, int width, int newValue){
-
-    switch(width%8){
-        case 0:
-            next[height][width/8].h=newValue;
-            break;
-        case 1:
-            next[height][width/8].g=newValue;
-            break;
-        case 2:
-            next[height][width/8].f=newValue;
-            break;
-        case 3:
-            next[height][width/8].e=newValue;
-            break;
-        case 4:
-            next[height][width/8].d=newValue;
-            break;
-        case 5:
-            next[height][width/8].c=newValue;
-            break;
-        case 6:
-            next[height][width/8].b=newValue;
-            break;
-        case 7:
-            next[height][width/8].a=newValue;
-    }
+     if(newValue==1)
+        next[height][width/8]=next[height][width/8] | (1<<(width%8));
+    else
+        next[height][width/8]=next[height][width/8] & ~(1<<(width%8));
 }
 
 
